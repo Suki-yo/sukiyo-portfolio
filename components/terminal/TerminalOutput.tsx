@@ -1,10 +1,10 @@
 import type { TerminalLine } from '@/types';
 
 const typeStyles: Record<TerminalLine['type'], string> = {
-  input: 'text-emerald-300',
-  output: 'text-slate-200',
+  input: 'text-[var(--accent-strong)]',
+  output: 'text-[var(--text)]',
   error: 'text-rose-300',
-  system: 'text-slate-500'
+  system: 'text-[var(--muted)]'
 };
 
 export function TerminalOutput({ lines }: { lines: TerminalLine[] }) {

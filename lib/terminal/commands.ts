@@ -41,7 +41,7 @@ export function executeLandingCommand(input: string): CommandResult {
       lines: [
         line('output', 'Available commands:'),
         line('output', '  help            Show this help'),
-        line('output', '  bun run dev     Launch the portfolio'),
+        line('output', '  bun run dev     Open the workspace'),
         line('output', '  whoami          About me'),
         line('output', '  ls projects     List projects'),
         line('output', '  contact         Contact links'),
@@ -58,13 +58,13 @@ export function executeLandingCommand(input: string): CommandResult {
   ) {
     return {
       lines: [
-        line('system', '> portfolio@0.1.0 dev'),
-        line('system', '> next dev --turbopack'),
+        line('system', '> workspace@0.1.0 boot'),
+        line('system', '> mounting terminal interface'),
         line('output', ''),
-        line('system', '  Next.js 15'),
-        line('system', '  Local: http://localhost:3000'),
+        line('system', '  theme: cyberpunk-purple'),
+        line('system', '  shell: integrated terminal'),
         line('output', ''),
-        line('output', 'Launching portfolio...')
+        line('output', 'Opening workspace...')
       ],
       launch: true
     };

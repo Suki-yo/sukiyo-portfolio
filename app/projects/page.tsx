@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { ProjectGrid } from '@/components/projects/ProjectGrid';
+import { TerminalRouteNav } from '@/components/terminal/TerminalRouteNav';
 
 export const metadata: Metadata = {
   title: 'Projects'
@@ -8,27 +9,38 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   return (
-    <main className="page-shell pb-40">
-      <section className="page-card p-8 sm:p-10">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-200/65">
-              ~/projects
-            </p>
-            <h1 className="mt-3 font-sans text-4xl text-white">
-              Selected work in code and design
-            </h1>
+    <main className="page-shell pb-10">
+      <section className="page-card">
+        <div className="terminal-headerbar">
+          <div className="terminal-dots">
+            <span className="terminal-dot" />
+            <span className="terminal-dot" data-variant="accent" />
+            <span className="terminal-dot" />
           </div>
-          <p className="max-w-md font-sans text-sm leading-7 text-slate-400">
-            Use the drawer below to navigate with commands, or browse the cards
-            directly.
-          </p>
+          <p className="terminal-title">~/projects</p>
         </div>
 
-        <div className="mt-10">
+        <div className="grid gap-8 p-6 sm:p-8">
+          <div className="space-y-3">
+            <p className="terminal-command-line">$ ls projects</p>
+            <div>
+              <h1 className="mt-3 font-sans text-3xl text-[var(--text)] sm:text-4xl">
+                Selected work in code and design
+              </h1>
+            </div>
+            <p className="max-w-3xl terminal-muted text-sm leading-7">
+              Browse projects as terminal output. Use `cat &lt;slug&gt;` to open a
+              project and `grep &lt;tech&gt;` to filter the list.
+            </p>
+          </div>
+
+          <TerminalRouteNav current="/projects" />
+
           <Suspense
             fallback={
-              <p className="font-mono text-sm text-slate-500">loading...</p>
+              <p className="font-mono text-sm text-[var(--muted)]">
+                loading workspace...
+              </p>
             }
           >
             <ProjectGrid />

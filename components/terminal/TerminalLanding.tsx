@@ -8,12 +8,14 @@ import { TerminalInput } from './TerminalInput';
 import { TerminalOutput } from './TerminalOutput';
 
 const BOOT_LINES: TerminalLine[] = [
-  { id: 'boot-0', type: 'system', content: 'sukiyo / portfolio' },
-  { id: 'boot-1', type: 'system', content: '-------------------' },
+  { id: 'boot-0', type: 'system', content: 'booting terminal portfolio...' },
+  { id: 'boot-1', type: 'system', content: 'theme loaded: cyberpunk-purple' },
   { id: 'boot-2', type: 'output', content: '' },
-  { id: 'boot-3', type: 'output', content: 'hint: try "help"' },
+  { id: 'boot-3', type: 'output', content: 'hint: run "help" or "bun run dev"' },
   { id: 'boot-4', type: 'output', content: '' }
 ];
+
+const PROMPT = 'dev@sukiyo:~$';
 
 export function TerminalLanding({ onLaunch }: { onLaunch: () => void }) {
   const [lines, setLines] = useState<TerminalLine[]>(BOOT_LINES);
@@ -33,7 +35,7 @@ export function TerminalLanding({ onLaunch }: { onLaunch: () => void }) {
     const inputLine: TerminalLine = {
       id: crypto.randomUUID(),
       type: 'input',
-      content: `$ ${input}`
+      content: `${PROMPT} ${input}`
     };
 
     setHistory((current) => [...current, input]);
@@ -63,41 +65,38 @@ export function TerminalLanding({ onLaunch }: { onLaunch: () => void }) {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -16 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="relative min-h-screen overflow-hidden px-4 py-6 sm:px-6 lg:px-10"
+        className="relative flex min-h-screen items-center overflow-hidden px-4 py-6 sm:px-6"
       >
-        <div className="mx-auto flex min-h-[calc(100vh-3rem)] max-w-5xl flex-col rounded-[2rem] border border-white/10 bg-slate-950/70 shadow-[0_40px_120px_rgba(2,6,23,0.6)] backdrop-blur">
-          <div className="flex items-center justify-between border-b border-white/10 px-5 py-4">
-            <div>
-              <p className="font-sans text-xs uppercase tracking-[0.35em] text-cyan-200/70">
-                developer terminal
-              </p>
-              <h1 className="mt-1 font-sans text-xl text-white sm:text-2xl">
-                Enter through the command line
-              </h1>
+        <div className="mx-auto w-full max-w-4xl overflow-hidden page-card">
+          <div className="terminal-headerbar">
+            <div className="terminal-dots">
+              <span className="terminal-dot" />
+              <span className="terminal-dot" data-variant="accent" />
+              <span className="terminal-dot" />
             </div>
-            <div className="hidden gap-2 sm:flex">
-              <span className="h-3 w-3 rounded-full bg-rose-300/80" />
-              <span className="h-3 w-3 rounded-full bg-amber-300/80" />
-              <span className="h-3 w-3 rounded-full bg-emerald-300/80" />
-            </div>
+            <p className="terminal-title">visitor@sukiyo: ~</p>
           </div>
 
-          <div className="terminal-grid flex-1 px-5 py-6 sm:px-8 sm:py-8">
-            <div className="mx-auto flex h-full max-w-3xl flex-col">
-              <div className="mb-6 flex items-center justify-between gap-4 rounded-2xl border border-cyan-300/10 bg-cyan-300/5 px-4 py-3">
-                <p className="font-mono text-xs text-cyan-100/80">
-                  boot sequence ready
-                </p>
-                <p className="font-mono text-xs text-slate-500">cursor active</p>
+          <section className="terminal-grid bg-[var(--background)] p-4 sm:p-6">
+            <div className="terminal-panel rounded-[0.9rem] p-5 sm:p-6">
+              <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
+                <div>
+                  <p className="terminal-section-label">sukiyo / terminal portfolio</p>
+                  <p className="mt-2 terminal-muted text-sm">
+                    run commands to explore. try `help`, `whoami`, `ls projects`,
+                    `contact`, or `bun run dev`.
+                  </p>
+                </div>
+                <span className="terminal-chip">interactive shell</span>
               </div>
 
-              <div className="terminal-panel flex-1 overflow-y-auto rounded-[1.5rem] p-5 sm:p-6">
+              <div className="min-h-[18rem] overflow-y-auto">
                 <TerminalOutput lines={lines} />
                 {launching && (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="mt-4 font-mono text-sm text-cyan-200"
+                    className="mt-4 font-mono text-sm text-[var(--accent-strong)]"
                   >
                     Session ready. Opening /projects...
                   </motion.div>
@@ -105,15 +104,16 @@ export function TerminalLanding({ onLaunch }: { onLaunch: () => void }) {
                 <div ref={bottomRef} />
               </div>
 
-              <div className="mt-5">
+              <div className="mt-6 border-t border-[var(--line)] pt-4">
                 <TerminalInput
                   onSubmit={handleSubmit}
                   history={history}
                   showTabComplete={false}
+                  prefix={PROMPT}
                 />
               </div>
             </div>
-          </div>
+          </section>
         </div>
       </motion.main>
     </AnimatePresence>

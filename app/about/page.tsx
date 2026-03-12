@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { TerminalRouteNav } from '@/components/terminal/TerminalRouteNav';
 import { about } from '@/data/about';
 
 export const metadata: Metadata = {
@@ -7,32 +8,38 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <main className="page-shell pb-40">
-      <section className="page-card p-8 sm:p-10">
-        <p className="font-mono text-xs uppercase tracking-[0.3em] text-cyan-200/65">
-          ~/about
-        </p>
-        <div className="mt-6 grid gap-10 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <h1 className="font-sans text-4xl text-white">{about.name}</h1>
-            <p className="mt-3 font-mono text-sm text-slate-400">
+    <main className="page-shell pb-10">
+      <section className="page-card">
+        <div className="terminal-headerbar">
+          <div className="terminal-dots">
+            <span className="terminal-dot" />
+            <span className="terminal-dot" data-variant="accent" />
+            <span className="terminal-dot" />
+          </div>
+          <p className="terminal-title">~/about</p>
+        </div>
+
+        <div className="space-y-5 p-6 sm:p-8">
+          <TerminalRouteNav current="/about" />
+
+          <div className="terminal-block">
+            <p className="terminal-command-line">$ whoami</p>
+            <h1 className="mt-3 font-sans text-3xl text-[var(--text)] sm:text-4xl">
+              {about.name}
+            </h1>
+            <p className="mt-3 terminal-muted text-sm">
               {about.title} / {about.location}
             </p>
-            <p className="mt-8 max-w-2xl font-sans text-base leading-8 text-slate-300">
+            <p className="mt-8 terminal-muted text-sm leading-8">
               {about.bio}
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-white/10 bg-white/5 p-6">
-            <p className="font-mono text-xs uppercase tracking-[0.25em] text-slate-500">
-              skills
-            </p>
+          <div className="terminal-block">
+            <p className="terminal-command-line">$ skills</p>
             <div className="mt-5 flex flex-wrap gap-2">
               {about.skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="rounded-full border border-white/10 bg-slate-950/60 px-3 py-1.5 font-mono text-xs text-slate-300"
-                >
+                <span key={skill} className="terminal-chip">
                   {skill}
                 </span>
               ))}

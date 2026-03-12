@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
-import { TerminalDrawerWrapper } from '@/components/terminal/TerminalDrawerWrapper';
-import { TerminalProvider } from '@/contexts/TerminalContext';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -18,12 +16,7 @@ export default function RootLayout({
 }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
-      <body className="font-sans antialiased">
-        <TerminalProvider>
-          {children}
-          <TerminalDrawerWrapper />
-        </TerminalProvider>
-      </body>
+      <body className="font-sans antialiased">{children}</body>
     </html>
   );
 }

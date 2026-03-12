@@ -84,10 +84,12 @@ export function TerminalInput({
 
   return (
     <div
-      className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/5 px-4 py-3"
+      className="flex items-center gap-3 rounded-[0.85rem] border border-[var(--line-strong)] bg-[rgba(8,10,11,0.82)] px-4 py-3"
       onClick={() => inputRef.current?.focus()}
     >
-      <span className="shrink-0 font-mono text-sm text-emerald-300">{prefix}</span>
+      <span className="shrink-0 font-mono text-sm text-[var(--accent-strong)]">
+        {prefix}
+      </span>
       <input
         ref={inputRef}
         type="text"
@@ -96,10 +98,10 @@ export function TerminalInput({
         onKeyDown={handleKeyDown}
         autoFocus={autoFocus}
         autoComplete="off"
-        autoCapitalize="off"
+        autoCapitalize="none"
         spellCheck={false}
         aria-label="Terminal input"
-        className="w-full bg-transparent font-mono text-sm text-slate-100 outline-none placeholder:text-slate-500"
+        className="w-full bg-transparent font-mono text-sm text-[var(--text)] outline-none placeholder:text-[var(--muted)]"
         placeholder={showTabComplete ? 'Type a command. Tab to complete.' : 'Type a command.'}
       />
     </div>
